@@ -163,6 +163,9 @@ export const FormattingToolbar: React.FC<FormattingToolbarProps> = ({
             </div>
           )}
         </div>
+
+        {/* App Logo */}
+        <span className="app-logo">Nar8r</span>
       </div>
 
       {/* Center: Formatting buttons */}
@@ -195,7 +198,7 @@ export const FormattingToolbar: React.FC<FormattingToolbarProps> = ({
         </div>
       </div>
 
-      {/* Right: Title Page + Theme toggle */}
+      {/* Right: Title Page + Theme toggle + Support */}
       <div className="toolbar-group" style={{ borderRight: 'none' }}>
         <button
           className="toolbar-button"
@@ -211,6 +214,18 @@ export const FormattingToolbar: React.FC<FormattingToolbarProps> = ({
         >
           {theme === 'midcentury' ? 'Classic' : 'Warm'} Theme
         </button>
+        <a
+          href="https://buymeacoffee.com/nar8r"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="coffee-button"
+          title="Support Nar8r"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M2 21V19H20V21H2ZM20 8V5H22V8C22 9.1 21.1 10 20 10H18V8H20ZM18 3H4V13C4 14.1 4.9 15 6 15H16C17.1 15 18 14.1 18 13V3ZM2 3V1H20V3H2Z"/>
+          </svg>
+          <span>Support</span>
+        </a>
       </div>
     </div>
   );
