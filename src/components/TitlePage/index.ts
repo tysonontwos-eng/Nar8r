@@ -1,0 +1,1 @@
+export { TitlePageEditor } from './TitlePageEditor';
