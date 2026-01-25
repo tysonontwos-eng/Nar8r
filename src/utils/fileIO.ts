@@ -105,19 +105,59 @@ export async function loadWithFileSystemAccess(): Promise<Screenplay | null> {
 
 /**
  * Fallback: Save by downloading a file
+ * Mobile-friendly version that handles iOS Safari quirks
  */
-export function saveWithDownload(screenplay: Screenplay): void {
+export function saveWithDownload(screenplay: Screenplay): boolean {
   const json = serializeScreenplay(screenplay);
   const blob = new Blob([json], { type: 'application/json' });
-  const url = URL.createObjectURL(blob);
+  const filename = `${screenplay.title || 'Untitled'}.slg`;
 
+  // Check for iOS Safari which doesn't support download attribute well
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+  const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
+  if (isIOS && isSafari) {
+    // On iOS Safari, open in new tab - user can long-press to save
+    const reader = new FileReader();
+    reader.onload = () => {
+      const dataUrl = reader.result as string;
+      const newWindow = window.open();
+      if (newWindow) {
+        newWindow.document.write(`
+          <html>
+            <head><title>${filename}</title></head>
+            <body style="font-family: system-ui; padding: 20px;">
+              <h2>Save Your Screenplay</h2>
+              <p>On iOS, long-press the link below and choose "Download Linked File":</p>
+              <a href="${dataUrl}" download="${filename}" style="font-size: 18px; color: #007AFF;">${filename}</a>
+              <p style="margin-top: 20px; color: #666;">Or copy the content and save it manually.</p>
+            </body>
+          </html>
+        `);
+      } else {
+        alert('Please allow popups to save your file, or use the auto-save feature.');
+      }
+    };
+    reader.readAsDataURL(blob);
+    return true;
+  }
+
+  // Standard download for other browsers
+  const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = `${screenplay.title || 'Untitled'}.slg`;
+  a.download = filename;
+  a.style.display = 'none';
   document.body.appendChild(a);
   a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
+
+  // Cleanup after a delay to ensure download starts
+  setTimeout(() => {
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }, 100);
+
+  return true;
 }
 
 /**
@@ -157,8 +197,7 @@ export async function saveScreenplay(screenplay: Screenplay): Promise<boolean> {
   if (supportsFileSystemAccess()) {
     return saveWithFileSystemAccess(screenplay);
   } else {
-    saveWithDownload(screenplay);
-    return true;
+    return saveWithDownload(screenplay);
   }
 }
 

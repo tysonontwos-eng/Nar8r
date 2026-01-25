@@ -21,8 +21,18 @@ const DIALOGUE_WIDTH = 3.5 * 72; // 252
 
 /**
  * Export screenplay to PDF with direct download
+ * Handles mobile browsers with fallback approaches
  */
 export function exportToPdf(screenplay: Screenplay): void {
+  // Determine filename - prompt if it's the default "Untitled"
+  let filename = screenplay.titlePage?.title || screenplay.title || '';
+  if (!filename || filename === 'Untitled') {
+    const userFilename = prompt('Enter a name for your screenplay PDF:', filename || 'My Screenplay');
+    if (userFilename === null) return; // User cancelled
+    filename = userFilename || 'Screenplay';
+  }
+  filename = filename.replace(/\.pdf$/i, '') + '.pdf';
+
   const doc = new jsPDF({
     orientation: 'portrait',
     unit: 'pt',
@@ -66,8 +76,32 @@ export function exportToPdf(screenplay: Screenplay): void {
     isFirstElement = false;
   });
 
-  // Download the PDF
-  doc.save(`${screenplay.title || 'Screenplay'}.pdf`);
+  // Handle mobile browsers
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+  const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
+  if (isIOS) {
+    // iOS: Open PDF in new tab - user can share/save from there
+    const pdfBlob = doc.output('blob');
+    const blobUrl = URL.createObjectURL(pdfBlob);
+    window.open(blobUrl, '_blank');
+    // Clean up after a delay
+    setTimeout(() => URL.revokeObjectURL(blobUrl), 10000);
+  } else if (isSafari) {
+    // Desktop Safari: use blob approach
+    const pdfBlob = doc.output('blob');
+    const blobUrl = URL.createObjectURL(pdfBlob);
+    const a = document.createElement('a');
+    a.href = blobUrl;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(blobUrl), 100);
+  } else {
+    // Standard browsers
+    doc.save(filename);
+  }
 }
 
 /**

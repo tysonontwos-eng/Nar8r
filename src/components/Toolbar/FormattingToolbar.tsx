@@ -64,19 +64,24 @@ export const FormattingToolbar: React.FC<FormattingToolbarProps> = ({
 
   const handleNew = useCallback(() => {
     setMenuOpen(false);
-    if (isDirty) {
-      if (confirm('Start a new screenplay? Any unsaved changes will be lost.')) {
-        newScreenplay();
-      }
-    } else {
+    // Always confirm to prevent accidental loss, especially on mobile
+    const message = isDirty
+      ? 'Start a new screenplay? Any unsaved changes will be lost.'
+      : 'Start a new screenplay?';
+    if (confirm(message)) {
       newScreenplay();
     }
   }, [isDirty, newScreenplay]);
 
   const handleSave = useCallback(async () => {
     setMenuOpen(false);
-    await saveToFile();
-  }, [saveToFile]);
+    const success = await saveToFile();
+    // Provide feedback on mobile where the save dialog may not be obvious
+    if (success) {
+      // Auto-save to localStorage as backup
+      autoSave();
+    }
+  }, [saveToFile, autoSave]);
 
   const handleOpen = useCallback(async () => {
     setMenuOpen(false);
