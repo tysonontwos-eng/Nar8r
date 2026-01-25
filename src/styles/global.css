@@ -422,15 +422,16 @@ body {
   user-select: none;
 }
 
-/* Buy Me a Coffee button */
+/* Support button - muted mid-century style */
 .coffee-button {
   display: flex;
   align-items: center;
   gap: 6px;
   padding: 6px 12px;
   border-radius: 4px;
-  background-color: #FFDD00;
-  color: #000000;
+  background-color: var(--color-paper);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
   text-decoration: none;
   font-size: 13px;
   font-weight: 500;
@@ -439,8 +440,9 @@ body {
 }
 
 .coffee-button:hover {
-  background-color: #E5C700;
-  transform: translateY(-1px);
+  background-color: var(--color-sidebar-hover);
+  color: var(--color-accent);
+  border-color: var(--color-accent);
 }
 
 .coffee-button svg {
