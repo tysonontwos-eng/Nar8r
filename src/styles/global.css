@@ -163,22 +163,44 @@ body {
   margin-bottom: 0;
 }
 
-/* Page break indicator */
+/* Page break indicator - creates visual separation between pages */
 .page-break {
   position: relative;
-  border-top: 1px dashed var(--color-page-break-line);
-  margin: 2em 0;
-  height: 0;
+  margin: 0;
+  padding: 1.5rem 0;
+  background: linear-gradient(
+    to bottom,
+    var(--color-paper) 0%,
+    var(--color-border) 45%,
+    var(--color-background) 50%,
+    var(--color-border) 55%,
+    var(--color-paper) 100%
+  );
+}
+
+.page-break::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 1px;
+  background: var(--color-border);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .page-break::after {
   content: attr(data-page);
   position: absolute;
-  right: -0.5in;
-  top: -0.5em;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
   font-size: 10pt;
   color: var(--color-page-break);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--color-background);
+  padding: 2px 8px;
+  border-radius: 3px;
 }
 
 /* Context menu */
@@ -758,9 +780,14 @@ body {
   }
 
   /* Page break adjustments */
+  .page-break {
+    padding: 1rem 0;
+  }
+
   .page-break::after {
-    right: 0;
+    right: 0.25rem;
     font-size: 9pt;
+    padding: 2px 6px;
   }
 
   /* Context menu full width on mobile */
