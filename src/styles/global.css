@@ -422,16 +422,16 @@ body {
   user-select: none;
 }
 
-/* Support button - muted mid-century style */
+/* Support button - muted Ko-fi coral/red */
 .coffee-button {
   display: flex;
   align-items: center;
   gap: 6px;
   padding: 6px 12px;
   border-radius: 4px;
-  background-color: var(--color-paper);
-  border: 1px solid var(--color-border);
-  color: var(--color-text-secondary);
+  background-color: #f9f0ef;
+  border: 1px solid #e8c4c0;
+  color: #b85a50;
   text-decoration: none;
   font-size: 13px;
   font-weight: 500;
@@ -440,9 +440,9 @@ body {
 }
 
 .coffee-button:hover {
-  background-color: var(--color-sidebar-hover);
-  color: var(--color-accent);
-  border-color: var(--color-accent);
+  background-color: #f5e6e4;
+  color: #a04a40;
+  border-color: #d4a49e;
 }
 
 .coffee-button svg {
