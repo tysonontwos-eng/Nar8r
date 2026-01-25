@@ -94,13 +94,6 @@ function extractTitlePage(doc: Document): FdxTitlePage {
     }
   }
 
-  // Try to extract from ScriptNotes or other metadata
-  const scriptNotes = doc.querySelector('ScriptNotes');
-  if (scriptNotes) {
-    const text = scriptNotes.textContent || '';
-    // Could parse author from here
-  }
-
   return result;
 }
 
