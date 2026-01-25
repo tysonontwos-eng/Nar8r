@@ -21,9 +21,9 @@ const DIALOGUE_WIDTH = 3.5 * 72; // 252
 
 /**
  * Export screenplay to PDF with direct download
- * Handles mobile browsers with fallback approaches
+ * Uses Web Share API on mobile for native share sheet
  */
-export function exportToPdf(screenplay: Screenplay): void {
+export async function exportToPdf(screenplay: Screenplay): Promise<void> {
   // Determine filename - prompt if it's the default "Untitled"
   let filename = screenplay.titlePage?.title || screenplay.title || '';
   if (!filename || filename === 'Untitled') {
@@ -76,32 +76,29 @@ export function exportToPdf(screenplay: Screenplay): void {
     isFirstElement = false;
   });
 
-  // Handle mobile browsers
-  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-  const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+  // Try Web Share API first (native share sheet on mobile)
+  const pdfBlob = doc.output('blob');
+  const canShareFiles = navigator.canShare && navigator.canShare({
+    files: [new File([pdfBlob], filename, { type: 'application/pdf' })]
+  });
 
-  if (isIOS) {
-    // iOS: Open PDF in new tab - user can share/save from there
-    const pdfBlob = doc.output('blob');
-    const blobUrl = URL.createObjectURL(pdfBlob);
-    window.open(blobUrl, '_blank');
-    // Clean up after a delay
-    setTimeout(() => URL.revokeObjectURL(blobUrl), 10000);
-  } else if (isSafari) {
-    // Desktop Safari: use blob approach
-    const pdfBlob = doc.output('blob');
-    const blobUrl = URL.createObjectURL(pdfBlob);
-    const a = document.createElement('a');
-    a.href = blobUrl;
-    a.download = filename;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    setTimeout(() => URL.revokeObjectURL(blobUrl), 100);
-  } else {
-    // Standard browsers
-    doc.save(filename);
+  if (canShareFiles) {
+    try {
+      const file = new File([pdfBlob], filename, { type: 'application/pdf' });
+      await navigator.share({
+        files: [file],
+        title: filename.replace('.pdf', ''),
+      });
+      return;
+    } catch (err: any) {
+      // User cancelled or share failed - fall through to download
+      if (err.name === 'AbortError') return;
+      console.warn('Web Share failed, falling back to download:', err);
+    }
   }
+
+  // Fallback: standard download
+  doc.save(filename);
 }
 
 /**

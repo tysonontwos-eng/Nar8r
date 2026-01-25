@@ -109,9 +109,9 @@ export const FormattingToolbar: React.FC<FormattingToolbarProps> = ({
     }
   }, [isDirty]);
 
-  const handleExportPdf = useCallback(() => {
+  const handleExportPdf = useCallback(async () => {
     setMenuOpen(false);
-    exportToPdf(screenplay);
+    await exportToPdf(screenplay);
   }, [screenplay]);
 
   return (

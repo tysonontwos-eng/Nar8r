@@ -104,45 +104,40 @@ export async function loadWithFileSystemAccess(): Promise<Screenplay | null> {
 }
 
 /**
- * Fallback: Save by downloading a file
- * Mobile-friendly version that handles iOS Safari quirks
+ * Check if Web Share API with files is supported
  */
-export function saveWithDownload(screenplay: Screenplay): boolean {
+function supportsWebShareFiles(): boolean {
+  return navigator.canShare && navigator.canShare({ files: [new File([], 'test.txt')] });
+}
+
+/**
+ * Fallback: Save by downloading a file
+ * Uses Web Share API on mobile for native "Save to Files" experience
+ */
+export async function saveWithDownload(screenplay: Screenplay): Promise<boolean> {
   const json = serializeScreenplay(screenplay);
-  const blob = new Blob([json], { type: 'application/json' });
   const filename = `${screenplay.title || 'Untitled'}.slg`;
 
-  // Check for iOS Safari which doesn't support download attribute well
-  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-  const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-
-  if (isIOS && isSafari) {
-    // On iOS Safari, open in new tab - user can long-press to save
-    const reader = new FileReader();
-    reader.onload = () => {
-      const dataUrl = reader.result as string;
-      const newWindow = window.open();
-      if (newWindow) {
-        newWindow.document.write(`
-          <html>
-            <head><title>${filename}</title></head>
-            <body style="font-family: system-ui; padding: 20px;">
-              <h2>Save Your Screenplay</h2>
-              <p>On iOS, long-press the link below and choose "Download Linked File":</p>
-              <a href="${dataUrl}" download="${filename}" style="font-size: 18px; color: #007AFF;">${filename}</a>
-              <p style="margin-top: 20px; color: #666;">Or copy the content and save it manually.</p>
-            </body>
-          </html>
-        `);
-      } else {
-        alert('Please allow popups to save your file, or use the auto-save feature.');
+  // Try Web Share API first (works great on mobile)
+  if (supportsWebShareFiles()) {
+    try {
+      const file = new File([json], filename, { type: 'application/json' });
+      await navigator.share({
+        files: [file],
+        title: screenplay.title || 'Screenplay',
+      });
+      return true;
+    } catch (err: any) {
+      // User cancelled or share failed - fall through to download
+      if (err.name === 'AbortError') {
+        return false;
       }
-    };
-    reader.readAsDataURL(blob);
-    return true;
+      console.warn('Web Share failed, falling back to download:', err);
+    }
   }
 
-  // Standard download for other browsers
+  // Standard download fallback
+  const blob = new Blob([json], { type: 'application/json' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
