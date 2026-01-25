@@ -779,24 +779,7 @@ body {
     padding: 10px 12px;
   }
 
-  /* Title page modal adjustments */
-  .title-page-modal {
-    width: 95%;
-    max-height: 95vh;
-  }
-
-  .title-page-content {
-    flex-direction: column;
-  }
-
-  .title-page-preview {
-    display: none;
-  }
-
-  .title-page-form {
-    border-left: none;
-    border-top: 1px solid var(--color-border);
-  }
+  /* Title page modal - styles moved to TitlePageEditor.css */
 }
 
 /* Extra small screens (iPhone SE, etc) */
