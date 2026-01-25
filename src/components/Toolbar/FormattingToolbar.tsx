@@ -220,14 +220,14 @@ export const FormattingToolbar: React.FC<FormattingToolbarProps> = ({
           {theme === 'midcentury' ? 'Classic' : 'Warm'} Theme
         </button>
         <a
-          href="https://buymeacoffee.com/nar8r"
+          href="https://ko-fi.com/nar8r"
           target="_blank"
           rel="noopener noreferrer"
           className="coffee-button"
-          title="Support Nar8r"
+          title="Support Nar8r on Ko-fi"
         >
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M2 21V19H20V21H2ZM20 8V5H22V8C22 9.1 21.1 10 20 10H18V8H20ZM18 3H4V13C4 14.1 4.9 15 6 15H16C17.1 15 18 14.1 18 13V3ZM2 3V1H20V3H2Z"/>
+            <path d="M23.881 8.948c-.773-4.085-4.859-4.593-4.859-4.593H.723c-.604 0-.679.798-.679.798s-.082 7.324-.022 11.822c.164 2.424 2.586 2.672 2.586 2.672s8.267-.023 11.966-.049c2.438-.426 2.683-2.566 2.658-3.734 4.352.24 7.422-2.831 6.649-6.916zm-11.062 3.511c-1.246 1.453-4.011 3.976-4.011 3.976s-.121.119-.31.023c-.076-.057-.108-.09-.108-.09-.443-.441-3.368-3.049-4.034-3.954-.709-.965-1.041-2.7-.091-3.71.951-1.01 3.005-1.086 4.363.407 0 0 1.565-1.782 3.468-.963 1.904.82 1.832 3.011.723 4.311z"/>
           </svg>
           <span>Support</span>
         </a>
