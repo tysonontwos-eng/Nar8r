@@ -572,3 +572,238 @@ body {
     page-break-after: always;
   }
 }
+
+/* ===== MOBILE RESPONSIVE STYLES ===== */
+
+/* Tablet and small laptops */
+@media (max-width: 1024px) {
+  .app-sidebar {
+    width: 200px;
+  }
+
+  .editor-page {
+    width: 100%;
+    max-width: 8.5in;
+  }
+}
+
+/* Mobile landscape and small tablets */
+@media (max-width: 768px) {
+  .app-header {
+    padding: 0.4rem 0.75rem;
+  }
+
+  .app-sidebar {
+    position: absolute;
+    z-index: 100;
+    height: calc(100vh - 40px);
+    top: 40px;
+    left: 0;
+    width: 240px;
+    box-shadow: var(--shadow-lg);
+  }
+
+  .app-sidebar.collapsed {
+    display: none;
+  }
+
+  .app-content {
+    padding: 1rem;
+  }
+
+  .editor-page {
+    width: 100%;
+    padding: 0.75in 0.5in;
+    padding-left: 0.75in;
+    min-height: auto;
+  }
+
+  /* Adjust screenplay element margins for smaller screens */
+  .script-element.character {
+    margin-left: 1.5in;
+  }
+
+  .script-element.parenthetical {
+    margin-left: 1in;
+  }
+
+  .script-element.dialogue {
+    margin-left: 0.5in;
+    max-width: none;
+  }
+
+  .toolbar-center {
+    position: static;
+    transform: none;
+  }
+
+  /* Hide text labels, keep icons */
+  .coffee-button span {
+    display: none;
+  }
+
+  .coffee-button {
+    padding: 6px 8px;
+    margin-left: 4px;
+  }
+
+  .theme-toggle {
+    font-size: 11px;
+    padding: 4px 8px;
+  }
+
+  .app-logo {
+    font-size: 1.1rem;
+    letter-spacing: 0.1em;
+  }
+}
+
+/* Mobile portrait - most aggressive simplification */
+@media (max-width: 480px) {
+  .app-header {
+    padding: 0.35rem 0.5rem;
+  }
+
+  .toolbar {
+    gap: 0.25rem;
+  }
+
+  .toolbar-group {
+    padding: 0 0.25rem;
+    gap: 0;
+  }
+
+  /* Hide app logo on very small screens */
+  .app-logo {
+    display: none;
+  }
+
+  /* Simplify toolbar - hide center formatting buttons */
+  .toolbar-center {
+    display: none;
+  }
+
+  /* Hide Title Page button text */
+  .toolbar-group:last-child .toolbar-button {
+    font-size: 11px;
+    padding: 4px 6px;
+  }
+
+  /* Compact theme toggle */
+  .theme-toggle {
+    font-size: 10px;
+    padding: 4px 6px;
+  }
+
+  /* Compact coffee button */
+  .coffee-button {
+    padding: 4px 6px;
+  }
+
+  .coffee-button svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .app-content {
+    padding: 0.5rem;
+  }
+
+  /* Full-width editor with minimal padding */
+  .editor-page {
+    width: 100%;
+    padding: 0.5rem;
+    padding-left: 0.5rem;
+    min-height: auto;
+    box-shadow: none;
+    border-radius: 0;
+  }
+
+  /* Reset all screenplay element margins for mobile */
+  .script-element.character {
+    margin-left: 20%;
+  }
+
+  .script-element.parenthetical {
+    margin-left: 10%;
+    max-width: 80%;
+  }
+
+  .script-element.dialogue {
+    margin-left: 5%;
+    max-width: 90%;
+  }
+
+  .script-element.scene-heading,
+  .script-element.action,
+  .script-element.transition {
+    margin-left: 0;
+  }
+
+  /* Smaller font for screenplay on mobile */
+  .screenplay-font {
+    font-size: 11pt;
+  }
+
+  /* Hide status bar details */
+  .status-bar {
+    font-size: 10px;
+    gap: 0.5rem;
+  }
+
+  .app-footer {
+    padding: 0.2rem 0.5rem;
+  }
+
+  /* Page break adjustments */
+  .page-break::after {
+    right: 0;
+    font-size: 9pt;
+  }
+
+  /* Context menu full width on mobile */
+  .context-menu {
+    left: 10px !important;
+    right: 10px !important;
+    width: auto !important;
+  }
+
+  /* Dropdown menu adjustments */
+  .dropdown-menu {
+    min-width: 160px;
+  }
+
+  .dropdown-item {
+    padding: 10px 12px;
+  }
+
+  /* Title page modal adjustments */
+  .title-page-modal {
+    width: 95%;
+    max-height: 95vh;
+  }
+
+  .title-page-content {
+    flex-direction: column;
+  }
+
+  .title-page-preview {
+    display: none;
+  }
+
+  .title-page-form {
+    border-left: none;
+    border-top: 1px solid var(--color-border);
+  }
+}
+
+/* Extra small screens (iPhone SE, etc) */
+@media (max-width: 375px) {
+  .theme-toggle {
+    display: none;
+  }
+
+  .toolbar-group:last-child .toolbar-button {
+    font-size: 10px;
+  }
+}
