@@ -253,8 +253,8 @@
    RESPONSIVE: Tablet & Mobile
    ============================================ */
 
-/* Tablet landscape */
-@media (max-width: 900px) {
+/* Tablet (portrait orientation or desktop) */
+@media (max-width: 900px) and (orientation: portrait) {
   .title-page-modal {
     max-width: 95%;
     max-height: 95vh;
@@ -392,8 +392,8 @@
   }
 }
 
-/* Mobile landscape - side-by-side with scrollable form */
-@media (max-width: 768px) and (orientation: landscape) {
+/* Mobile/tablet landscape - side-by-side with scrollable form */
+@media (max-width: 900px) and (orientation: landscape) {
   .title-page-modal {
     width: 95%;
     max-width: 95%;
