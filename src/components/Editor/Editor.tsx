@@ -2,6 +2,7 @@ import React, { useState, useCallback, useMemo } from 'react';
 import { useDocumentStore } from '../../stores/documentStore';
 import { EditorElement } from './EditorElement';
 import { ElementMenu } from './ElementMenu';
+import { PageBreak } from './PageBreak';
 import { FORMATTING } from '../../types/screenplay';
 
 export const Editor: React.FC = () => {
@@ -83,52 +84,22 @@ export const Editor: React.FC = () => {
     }
   }, [contextMenu.visible, handleCloseContextMenu]);
 
-  // Group elements by page
-  const pages = useMemo(() => {
-    const result: { elements: typeof screenplay.elements; startIndex: number }[] = [];
-    let currentPage: typeof screenplay.elements = [];
-    let currentStartIndex = 0;
-
-    screenplay.elements.forEach((element, index) => {
-      if (pageBreaks.includes(index) && currentPage.length > 0) {
-        result.push({ elements: currentPage, startIndex: currentStartIndex });
-        currentPage = [];
-        currentStartIndex = index;
-      }
-      currentPage.push(element);
-    });
-
-    // Don't forget the last page
-    if (currentPage.length > 0) {
-      result.push({ elements: currentPage, startIndex: currentStartIndex });
-    }
-
-    return result;
-  }, [screenplay.elements, pageBreaks]);
-
   return (
-    <div className="editor-container" onClick={handleEditorClick}>
-      {pages.map((page, pageIndex) => (
-        <React.Fragment key={pageIndex}>
-          {pageIndex > 0 && <div className="page-gap" />}
-          <div className="editor-page screenplay-font">
-            {page.elements.map((element, elementIndex) => {
-              const globalIndex = page.startIndex + elementIndex;
-              return (
-                <EditorElement
-                  key={element.id}
-                  element={element}
-                  index={globalIndex}
-                  isActive={globalIndex === currentElementIndex}
-                  onFocus={() => handleElementFocus(globalIndex)}
-                  onShowContextMenu={(e) => handleShowContextMenu(e, globalIndex)}
-                  characterSuggestions={characterSuggestions}
-                  locationSuggestions={locationSuggestions}
-                />
-              );
-            })}
-            <span className="page-number">{pageIndex + 1}.</span>
-          </div>
+    <div className="editor-page screenplay-font" onClick={handleEditorClick}>
+      {screenplay.elements.map((element, index) => (
+        <React.Fragment key={element.id}>
+          {pageBreaks.includes(index) && (
+            <PageBreak pageNumber={pageBreaks.indexOf(index) + 2} />
+          )}
+          <EditorElement
+            element={element}
+            index={index}
+            isActive={index === currentElementIndex}
+            onFocus={() => handleElementFocus(index)}
+            onShowContextMenu={(e) => handleShowContextMenu(e, index)}
+            characterSuggestions={characterSuggestions}
+            locationSuggestions={locationSuggestions}
+          />
         </React.Fragment>
       ))}
 
