@@ -732,22 +732,17 @@ body {
   /* On mobile, make pages flow as one continuous paper */
   .editor-container {
     gap: 0;
-    min-height: calc(100vh - 5rem);
+    width: 100%;
+    align-items: stretch;
   }
 
   .editor-page {
     width: 100%;
+    min-width: 100%;
     padding: 1rem;
-    padding-left: 1rem;
-    min-height: auto;
+    min-height: calc(100vh - 6rem);
     box-shadow: none;
     border-radius: 0;
-    flex: 1;
-  }
-
-  /* First page fills available space, subsequent pages size to content */
-  .editor-page:first-of-type {
-    min-height: calc(100vh - 6rem);
   }
 
   /* Hide page gaps and page numbers on mobile - continuous scroll */
