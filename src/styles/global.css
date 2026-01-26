@@ -633,9 +633,24 @@ body {
     font-size: 1.1rem;
     letter-spacing: 0.1em;
   }
+
+  /* Editor page scaling for tablets */
+  .app-content {
+    padding: 1rem;
+  }
+
+  .editor-container {
+    gap: 1.5rem;
+  }
+
+  .editor-page {
+    transform: scale(0.75);
+    transform-origin: top center;
+    margin-bottom: calc(-11in * 0.25); /* Compensate for scaled height */
+  }
 }
 
-/* Mobile portrait - UI simplification only */
+/* Mobile portrait - UI simplification and page scaling */
 @media (max-width: 480px) {
   .app-header {
     padding: 0.35rem 0.5rem;
@@ -707,6 +722,28 @@ body {
   .dropdown-item {
     padding: 10px 12px;
   }
+
+  /* Editor page scaling for mobile portrait */
+  .app-content {
+    padding: 0.5rem;
+  }
+
+  .editor-container {
+    gap: 1rem;
+  }
+
+  .editor-page {
+    /* Scale to fit ~95% of viewport width */
+    /* 8.5in = 816px, so for 480px we need ~0.55 scale */
+    transform: scale(0.52);
+    transform-origin: top center;
+    /* Compensate for the scaled height so pages stack correctly */
+    margin-bottom: calc(-11in * 0.48);
+  }
+
+  .page-number {
+    font-size: 8pt;
+  }
 }
 
 /* Extra small screens (iPhone SE, etc) */
@@ -717,5 +754,58 @@ body {
 
   .toolbar-group:last-child .toolbar-button {
     font-size: 10px;
+  }
+
+  /* Smaller scale for very small phones */
+  .editor-page {
+    transform: scale(0.42);
+    margin-bottom: calc(-11in * 0.58);
+  }
+}
+
+/* Mobile landscape orientation */
+@media (max-height: 500px) and (orientation: landscape) {
+  .app-content {
+    padding: 0.5rem;
+  }
+
+  .editor-container {
+    gap: 0.75rem;
+  }
+
+  /* In landscape, scale to fit the shorter height */
+  /* Viewport ~320-400px tall minus header/footer ~60px = ~260-340px available */
+  /* 11in = 1056px, so we need ~0.28-0.32 scale for height */
+  .editor-page {
+    transform: scale(0.35);
+    transform-origin: top center;
+    margin-bottom: calc(-11in * 0.65);
+  }
+
+  .page-number {
+    font-size: 7pt;
+  }
+
+  /* Compact header in landscape */
+  .app-header {
+    padding: 0.25rem 0.5rem;
+  }
+
+  /* Hide footer in landscape to maximize space */
+  .app-footer {
+    display: none;
+  }
+}
+
+/* Tablet landscape */
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+  .app-content {
+    padding: 1rem;
+  }
+
+  .editor-page {
+    transform: scale(0.65);
+    transform-origin: top center;
+    margin-bottom: calc(-11in * 0.35);
   }
 }
