@@ -2,7 +2,6 @@ import React, { useState, useCallback, useMemo } from 'react';
 import { useDocumentStore } from '../../stores/documentStore';
 import { EditorElement } from './EditorElement';
 import { ElementMenu } from './ElementMenu';
-import { PageBreak } from './PageBreak';
 import { FORMATTING } from '../../types/screenplay';
 
 export const Editor: React.FC = () => {
@@ -111,7 +110,7 @@ export const Editor: React.FC = () => {
     <div className="editor-container" onClick={handleEditorClick}>
       {pages.map((page, pageIndex) => (
         <React.Fragment key={pageIndex}>
-          {pageIndex > 0 && <PageBreak pageNumber={pageIndex + 1} />}
+          {pageIndex > 0 && <div className="page-gap" />}
           <div className="editor-page screenplay-font">
             {page.elements.map((element, elementIndex) => {
               const globalIndex = page.startIndex + elementIndex;
@@ -128,6 +127,7 @@ export const Editor: React.FC = () => {
                 />
               );
             })}
+            <span className="page-number">{pageIndex + 1}.</span>
           </div>
         </React.Fragment>
       ))}
