@@ -617,39 +617,44 @@ body {
   }
 
   .app-content {
-    padding: 1rem;
+    padding: 0.5rem;
+  }
+
+  /* On tablet/landscape mobile, use simple full-width layout */
+  .editor-container {
+    gap: 0;
+    width: 100%;
+    align-items: stretch;
   }
 
   .editor-page {
     width: 100%;
-    max-width: 8.5in;
-    padding: 0.75in 0.5in;
-    padding-left: 0.75in;
-    min-height: 11in;
+    min-width: 100%;
+    padding: 1rem;
+    min-height: calc(100vh - 5rem);
+    box-shadow: none;
+    border-radius: 0;
   }
 
   /* Adjust screenplay element margins for smaller screens */
   .script-element.character {
-    margin-left: 1.5in;
+    margin-left: 25%;
   }
 
   .script-element.parenthetical {
-    margin-left: 1in;
+    margin-left: 15%;
+    max-width: 70%;
   }
 
   .script-element.dialogue {
-    margin-left: 0.5in;
-    max-width: none;
+    margin-left: 10%;
+    max-width: 80%;
   }
 
-  /* Page gap adjustments for tablet */
-  .page-gap {
-    height: 1.5rem;
-  }
-
+  /* Hide page gaps and numbers on mobile/tablet */
+  .page-gap,
   .page-number {
-    bottom: 0.4in;
-    right: 0.4in;
+    display: none;
   }
 
   .toolbar-center {
