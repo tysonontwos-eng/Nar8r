@@ -167,7 +167,7 @@ body {
 .page-break {
   position: relative;
   height: 2.5rem;
-  margin: 1.5em calc(-1in - 1.5in) 1.5em calc(-1.5in); /* Extend to edges of editor-page */
+  margin: 1.5em calc(-1in) 1.5em calc(-1.5in); /* Extend to edges of editor-page */
   background-color: var(--color-background);
   /* Top shadow: bottom of previous page */
   box-shadow:
@@ -188,7 +188,7 @@ body {
 .page-break::after {
   content: attr(data-page);
   position: absolute;
-  right: calc(1in + 0.5in); /* Account for negative margin */
+  right: 0.5in; /* Position page number near right edge */
   top: 50%;
   transform: translateY(-50%);
   font-size: 10pt;
