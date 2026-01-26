@@ -163,42 +163,38 @@ body {
   margin-bottom: 0;
 }
 
-/* Page break indicator - creates visual separation between pages */
+/* Page break indicator - creates visual gap between pages like separate paper */
 .page-break {
   position: relative;
-  margin: 0;
-  padding: 1.5rem 0;
-  background: linear-gradient(
-    to bottom,
-    var(--color-paper) 0%,
-    var(--color-border) 45%,
-    var(--color-background) 50%,
-    var(--color-border) 55%,
-    var(--color-paper) 100%
-  );
+  height: 2.5rem;
+  margin: 1.5em calc(-1in - 1.5in) 1.5em calc(-1.5in); /* Extend to edges of editor-page */
+  background-color: var(--color-background);
+  /* Top shadow: bottom of previous page */
+  box-shadow:
+    inset 0 8px 8px -8px rgba(0, 0, 0, 0.12),
+    inset 0 -8px 8px -8px rgba(0, 0, 0, 0.12);
 }
 
 .page-break::before {
   content: '';
   position: absolute;
+  top: 0;
   left: 0;
   right: 0;
-  top: 0;
-  height: 1px;
-  background: var(--color-border);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  height: 50%;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.03), transparent);
 }
 
 .page-break::after {
   content: attr(data-page);
   position: absolute;
-  right: 0.5rem;
+  right: calc(1in + 0.5in); /* Account for negative margin */
   top: 50%;
   transform: translateY(-50%);
   font-size: 10pt;
   color: var(--color-page-break);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  background: var(--color-background);
+  background-color: var(--color-background);
   padding: 2px 8px;
   border-radius: 3px;
 }
@@ -656,6 +652,17 @@ body {
     max-width: none;
   }
 
+  /* Page break adjustments for tablet */
+  .page-break {
+    margin-left: -0.75in;
+    margin-right: -0.5in;
+    height: 2rem;
+  }
+
+  .page-break::after {
+    right: 0.5in;
+  }
+
   .toolbar-center {
     position: static;
     transform: none;
@@ -781,11 +788,13 @@ body {
 
   /* Page break adjustments */
   .page-break {
-    padding: 1rem 0;
+    margin-left: -0.5rem;
+    margin-right: -0.5rem;
+    height: 1.5rem;
   }
 
   .page-break::after {
-    right: 0.25rem;
+    right: 0.5rem;
     font-size: 9pt;
     padding: 2px 6px;
   }
