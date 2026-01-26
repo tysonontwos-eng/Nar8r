@@ -636,25 +636,29 @@ body {
     border-radius: 0;
   }
 
-  /* Screenplay formatting for tablet/landscape - maintain proper structure */
+  /* Screenplay formatting - proportional to industry standard */
   .script-element.scene-heading,
-  .script-element.action,
-  .script-element.transition {
+  .script-element.action {
     margin-left: 0;
   }
 
   .script-element.character {
-    margin-left: 2rem;
+    margin-left: 37%; /* 2.2in / 6in content width */
   }
 
   .script-element.parenthetical {
-    margin-left: 1.5rem;
-    max-width: calc(100% - 3rem);
+    margin-left: 27%; /* 1.6in / 6in content width */
+    max-width: 46%; /* ~2.75in / 6in */
   }
 
   .script-element.dialogue {
-    margin-left: 1rem;
-    max-width: calc(100% - 2rem);
+    margin-left: 17%; /* 1in / 6in content width */
+    max-width: 66%; /* ~4in / 6in */
+  }
+
+  .script-element.transition {
+    margin-left: 0;
+    text-align: right;
   }
 
   /* Hide page gaps and numbers on mobile/tablet */
@@ -762,26 +766,7 @@ body {
     display: none;
   }
 
-  /* Screenplay formatting for mobile portrait - compact but proper structure */
-  .script-element.scene-heading,
-  .script-element.action,
-  .script-element.transition {
-    margin-left: 0;
-  }
-
-  .script-element.character {
-    margin-left: 1.5rem;
-  }
-
-  .script-element.parenthetical {
-    margin-left: 1rem;
-    max-width: calc(100% - 2rem);
-  }
-
-  .script-element.dialogue {
-    margin-left: 0.5rem;
-    max-width: calc(100% - 1rem);
-  }
+  /* Mobile uses same proportional formatting as tablet - industry standard ratios */
 
   /* Smaller font for screenplay on mobile */
   .screenplay-font {
