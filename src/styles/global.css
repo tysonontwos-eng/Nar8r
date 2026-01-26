@@ -622,9 +622,10 @@ body {
 
   .editor-page {
     width: 100%;
+    max-width: 8.5in;
     padding: 0.75in 0.5in;
     padding-left: 0.75in;
-    min-height: auto;
+    min-height: 11in;
   }
 
   /* Adjust screenplay element margins for smaller screens */
@@ -728,14 +729,14 @@ body {
     padding: 0.5rem;
   }
 
-  /* Full-width editor with minimal padding */
+  /* Full-width editor with mobile-friendly padding */
   .editor-page {
-    width: 100%;
-    padding: 0.5rem;
-    padding-left: 0.5rem;
-    min-height: auto;
-    box-shadow: none;
-    border-radius: 0;
+    width: calc(100% - 1rem);
+    padding: 1rem;
+    padding-left: 1rem;
+    min-height: 100vh;
+    box-shadow: var(--shadow-md);
+    border-radius: 4px;
   }
 
   /* Reset all screenplay element margins for mobile */
@@ -776,12 +777,12 @@ body {
 
   /* Page gap adjustments */
   .page-gap {
-    height: 0.75rem;
+    height: 1rem;
   }
 
   .page-number {
-    bottom: 0.3rem;
-    right: 0.3rem;
+    bottom: 0.5rem;
+    right: 0.75rem;
     font-size: 9pt;
   }
 
