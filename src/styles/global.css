@@ -636,19 +636,25 @@ body {
     border-radius: 0;
   }
 
-  /* Adjust screenplay element margins for smaller screens */
+  /* Screenplay formatting for tablet/landscape - maintain proper structure */
+  .script-element.scene-heading,
+  .script-element.action,
+  .script-element.transition {
+    margin-left: 0;
+  }
+
   .script-element.character {
-    margin-left: 25%;
+    margin-left: 2rem;
   }
 
   .script-element.parenthetical {
-    margin-left: 15%;
-    max-width: 70%;
+    margin-left: 1.5rem;
+    max-width: calc(100% - 3rem);
   }
 
   .script-element.dialogue {
-    margin-left: 10%;
-    max-width: 80%;
+    margin-left: 1rem;
+    max-width: calc(100% - 2rem);
   }
 
   /* Hide page gaps and numbers on mobile/tablet */
@@ -756,25 +762,25 @@ body {
     display: none;
   }
 
-  /* Reset all screenplay element margins for mobile */
-  .script-element.character {
-    margin-left: 20%;
-  }
-
-  .script-element.parenthetical {
-    margin-left: 10%;
-    max-width: 80%;
-  }
-
-  .script-element.dialogue {
-    margin-left: 5%;
-    max-width: 90%;
-  }
-
+  /* Screenplay formatting for mobile portrait - compact but proper structure */
   .script-element.scene-heading,
   .script-element.action,
   .script-element.transition {
     margin-left: 0;
+  }
+
+  .script-element.character {
+    margin-left: 1.5rem;
+  }
+
+  .script-element.parenthetical {
+    margin-left: 1rem;
+    max-width: calc(100% - 2rem);
+  }
+
+  .script-element.dialogue {
+    margin-left: 0.5rem;
+    max-width: calc(100% - 1rem);
   }
 
   /* Smaller font for screenplay on mobile */
