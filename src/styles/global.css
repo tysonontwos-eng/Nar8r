@@ -729,14 +729,39 @@ body {
     padding: 0.5rem;
   }
 
-  /* Full-width editor with mobile-friendly padding */
+  /* On mobile, make pages flow as one continuous paper */
+  .editor-container {
+    gap: 0;
+  }
+
   .editor-page {
-    width: calc(100% - 1rem);
-    padding: 1rem;
-    padding-left: 1rem;
-    min-height: 100vh;
-    box-shadow: var(--shadow-md);
+    width: 100%;
+    padding: 0.5rem;
+    padding-left: 0.5rem;
+    min-height: auto;
+    box-shadow: none;
+    border-radius: 0;
+  }
+
+  /* Only first page gets top padding, only last gets bottom */
+  .editor-page:first-of-type {
+    padding-top: 1rem;
+    border-radius: 4px 4px 0 0;
+  }
+
+  .editor-page:last-of-type {
+    padding-bottom: 1rem;
+    border-radius: 0 0 4px 4px;
+  }
+
+  .editor-page:only-of-type {
     border-radius: 4px;
+  }
+
+  /* Hide page gaps and page numbers on mobile - continuous scroll */
+  .page-gap,
+  .page-number {
+    display: none;
   }
 
   /* Reset all screenplay element margins for mobile */
@@ -773,17 +798,6 @@ body {
 
   .app-footer {
     padding: 0.2rem 0.5rem;
-  }
-
-  /* Page gap adjustments */
-  .page-gap {
-    height: 1rem;
-  }
-
-  .page-number {
-    bottom: 0.5rem;
-    right: 0.75rem;
-    font-size: 9pt;
   }
 
   /* Context menu full width on mobile */
