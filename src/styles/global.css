@@ -664,8 +664,53 @@ body {
   }
 }
 
+/* Mobile Tab toolbar - hidden on desktop */
+.mobile-toolbar {
+  display: none;
+  position: fixed;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--color-sidebar);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  box-shadow: var(--shadow-lg);
+  padding: 0.5rem 1rem;
+  z-index: 100;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.mobile-toolbar-btn {
+  background: none;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+  color: var(--color-text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobile-toolbar-btn:active {
+  background-color: var(--color-selection);
+}
+
+.mobile-toolbar-label {
+  font-size: 12px;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
 /* Mobile portrait - UI simplification and page scaling */
 @media (max-width: 480px) {
+  /* Show mobile toolbar on small screens */
+  .mobile-toolbar {
+    display: flex;
+  }
+
   .app-header {
     padding: 0.35rem 0.5rem;
   }

@@ -2,6 +2,7 @@ import React, { useState, useCallback, useMemo } from 'react';
 import { useDocumentStore } from '../../stores/documentStore';
 import { EditorElement } from './EditorElement';
 import { ElementMenu } from './ElementMenu';
+import { MobileToolbar } from './MobileToolbar';
 import { FORMATTING } from '../../types/screenplay';
 
 export const Editor: React.FC = () => {
@@ -142,6 +143,8 @@ export const Editor: React.FC = () => {
           locations={getLocationsSortedByOccurrence()}
         />
       )}
+
+      <MobileToolbar currentElementIndex={currentElementIndex} />
     </div>
   );
 };
