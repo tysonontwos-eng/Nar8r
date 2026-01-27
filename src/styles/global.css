@@ -127,6 +127,19 @@ body {
   min-height: 1em;
   white-space: pre-wrap;
   word-wrap: break-word;
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+/* Allow selection across elements in the editor */
+.editor-page {
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+.editor-element-wrapper {
+  -webkit-user-select: text;
+  user-select: text;
 }
 
 .script-element:focus {
