@@ -324,10 +324,15 @@ export const EditorElement: React.FC<EditorElementProps> = ({
   }, [onShowContextMenu]);
 
   // Handle click on non-active elements to focus them
-  const handleClick = useCallback(() => {
+  // Only activate if user isn't making a text selection
+  const handleMouseUp = useCallback(() => {
     if (!isActive) {
-      onFocus();
-      setCurrentElement(index);
+      const selection = window.getSelection();
+      // Only activate if there's no text selection (user just clicked, didn't drag)
+      if (!selection || selection.isCollapsed || selection.toString().length === 0) {
+        onFocus();
+        setCurrentElement(index);
+      }
     }
   }, [isActive, onFocus, setCurrentElement, index]);
 
@@ -341,7 +346,7 @@ export const EditorElement: React.FC<EditorElementProps> = ({
         onInput={handleInput}
         onKeyDown={handleKeyDown}
         onFocus={handleFocus}
-        onClick={handleClick}
+        onMouseUp={handleMouseUp}
         onContextMenu={handleContextMenu}
         data-placeholder={ELEMENT_PLACEHOLDERS[element.type]}
         data-element-type={element.type}

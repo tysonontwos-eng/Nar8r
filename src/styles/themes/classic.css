@@ -14,9 +14,9 @@
   --color-text-secondary: #4A4A4A;
   --color-text-muted: #7A7A7A;
 
-  /* Accents */
-  --color-accent: #2563EB;
-  --color-accent-hover: #1D4ED8;
+  /* Accents - navy blue */
+  --color-accent: #1E3A5F;
+  --color-accent-hover: #152A45;
   --color-secondary: #4B5563;
   --color-secondary-hover: #374151;
 
@@ -25,12 +25,12 @@
   --color-border-light: #F0F0F0;
 
   /* Status and highlights */
-  --color-selection: rgba(37, 99, 235, 0.15);
+  --color-selection: rgba(30, 58, 95, 0.15);
   --color-highlight: rgba(75, 85, 99, 0.1);
-  --color-focus: rgba(37, 99, 235, 0.3);
+  --color-focus: rgba(30, 58, 95, 0.3);
 
   /* Page break */
-  --color-page-break: #2563EB;
+  --color-page-break: #1E3A5F;
   --color-page-break-line: #E5E5E5;
 
   /* Menu */
