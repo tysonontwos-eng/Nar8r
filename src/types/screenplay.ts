@@ -91,7 +91,7 @@ export interface EditorState {
 
 // App settings
 export interface AppSettings {
-  theme: 'midcentury' | 'classic';
+  theme: 'midcentury' | 'classic' | 'noir';
   fontSize: number; // Base font size multiplier
   autoSave: boolean;
   autoSaveInterval: number; // in milliseconds

@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState, useRef } from 'react';
 import { useSettingsStore } from '../../stores/settingsStore';
 import { useDocumentStore } from '../../stores/documentStore';
 import { loadFdxFile } from '../../utils/importFdx';
+import { exportToFdx } from '../../utils/exportFdx';
 import { exportToPdf } from '../../utils/exportPdf';
 
 interface FormattingToolbarProps {
@@ -109,6 +110,11 @@ export const FormattingToolbar: React.FC<FormattingToolbarProps> = ({
     }
   }, [isDirty]);
 
+  const handleExportFdx = useCallback(() => {
+    setMenuOpen(false);
+    exportToFdx(screenplay);
+  }, [screenplay]);
+
   const handleExportPdf = useCallback(async () => {
     setMenuOpen(false);
     await exportToPdf(screenplay);
@@ -161,6 +167,9 @@ export const FormattingToolbar: React.FC<FormattingToolbarProps> = ({
               <div className="dropdown-divider" />
               <button className="dropdown-item" onClick={handleImportFdx}>
                 Import FDX...
+              </button>
+              <button className="dropdown-item" onClick={handleExportFdx}>
+                Export FDX
               </button>
               <button className="dropdown-item" onClick={handleExportPdf}>
                 Export PDF
@@ -217,7 +226,7 @@ export const FormattingToolbar: React.FC<FormattingToolbarProps> = ({
           onClick={toggleTheme}
           title="Toggle theme"
         >
-          {theme === 'midcentury' ? 'Classic' : 'Warm'} Theme
+          {theme === 'midcentury' ? 'Classic' : theme === 'classic' ? 'Noir' : 'Warm'}
         </button>
         <a
           href="https://ko-fi.com/nar8r"

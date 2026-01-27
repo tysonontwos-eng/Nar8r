@@ -1,6 +1,7 @@
 /* Import theme files */
 @import './themes/midcentury.css';
 @import './themes/classic.css';
+@import './themes/noir.css';
 
 /* Reset and base styles */
 *,

@@ -323,20 +323,30 @@ export const EditorElement: React.FC<EditorElementProps> = ({
     onShowContextMenu(e);
   }, [onShowContextMenu]);
 
+  // Handle click on non-active elements to focus them
+  const handleClick = useCallback(() => {
+    if (!isActive) {
+      onFocus();
+      setCurrentElement(index);
+    }
+  }, [isActive, onFocus, setCurrentElement, index]);
+
   return (
     <div className="editor-element-wrapper" style={{ position: 'relative' }}>
       <div
         ref={ref}
         className={`script-element screenplay-font ${element.type} ${isActive ? 'active' : ''}`}
-        contentEditable
+        contentEditable={isActive}
         suppressContentEditableWarning
         onInput={handleInput}
         onKeyDown={handleKeyDown}
         onFocus={handleFocus}
+        onClick={handleClick}
         onContextMenu={handleContextMenu}
         data-placeholder={ELEMENT_PLACEHOLDERS[element.type]}
         data-element-type={element.type}
         data-index={index}
+        tabIndex={0}
       />
 
       {showAutocomplete && autocompleteItems.length > 0 && (

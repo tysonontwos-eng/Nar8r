@@ -4,7 +4,7 @@ import type { AppSettings } from '../types/screenplay';
 
 interface SettingsState extends AppSettings {
   // Actions
-  setTheme: (theme: 'midcentury' | 'classic') => void;
+  setTheme: (theme: 'midcentury' | 'classic' | 'noir') => void;
   toggleTheme: () => void;
   setFontSize: (size: number) => void;
   setAutoSave: (enabled: boolean) => void;
@@ -24,7 +24,11 @@ export const useSettingsStore = create<SettingsState>()(
 
       toggleTheme: () => {
         const current = get().theme;
-        set({ theme: current === 'midcentury' ? 'classic' : 'midcentury' });
+        // Cycle: midcentury -> classic -> noir -> midcentury
+        const nextTheme = current === 'midcentury' ? 'classic'
+          : current === 'classic' ? 'noir'
+          : 'midcentury';
+        set({ theme: nextTheme });
       },
 
       setFontSize: (fontSize) => set({ fontSize }),
