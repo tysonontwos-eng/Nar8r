@@ -246,16 +246,19 @@ export const EditorElement: React.FC<EditorElementProps> = ({
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
 
+      // Get current element type directly from store to avoid stale closure
+      const currentType = useDocumentStore.getState().screenplay.elements[index]?.type || element.type;
+
       // Determine what type the next element should be
       let nextType: ElementType = 'action';
 
-      if (element.type === 'scene-heading') {
+      if (currentType === 'scene-heading') {
         nextType = 'action';
-      } else if (element.type === 'character') {
+      } else if (currentType === 'character') {
         nextType = 'dialogue';
-      } else if (element.type === 'dialogue') {
+      } else if (currentType === 'dialogue') {
         nextType = 'action';
-      } else if (element.type === 'parenthetical') {
+      } else if (currentType === 'parenthetical') {
         nextType = 'dialogue';
       }
 

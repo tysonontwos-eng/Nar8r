@@ -15,9 +15,9 @@ export const MobileToolbar: React.FC<MobileToolbarProps> = ({ currentElementInde
     if (!viewport) return;
 
     const updatePosition = () => {
-      // Calculate how much the viewport has shrunk (keyboard height)
-      const keyboardHeight = window.innerHeight - viewport.height;
-      setBottomOffset(keyboardHeight);
+      // On iOS, we need to account for both the keyboard height AND scroll offset
+      const keyboardHeight = window.innerHeight - viewport.height - viewport.offsetTop;
+      setBottomOffset(Math.max(0, keyboardHeight));
     };
 
     viewport.addEventListener('resize', updatePosition);
@@ -35,7 +35,8 @@ export const MobileToolbar: React.FC<MobileToolbarProps> = ({ currentElementInde
   const handleTab = (e: React.MouseEvent | React.TouchEvent) => {
     // Prevent default to keep keyboard open
     e.preventDefault();
-    cycleElementType(currentElementIndex, false); // forward
+    // Get current element type directly from store for accurate cycling
+    cycleElementType(currentElementIndex, false);
   };
 
   return (
