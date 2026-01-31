@@ -150,8 +150,8 @@ body {
 .script-element.scene-heading {
   text-transform: uppercase;
   font-weight: normal;
-  margin-top: 1.5em;
-  margin-bottom: 0;
+  margin-top: 2em; /* Two blank lines before scene heading */
+  margin-bottom: 1em; /* One blank line after */
 }
 
 /* First element in the editor should have no top margin */
@@ -160,13 +160,13 @@ body {
 }
 
 .script-element.action {
-  margin-top: 1em;
+  margin-top: 1em; /* One blank line before action */
   margin-bottom: 0;
 }
 
 .script-element.character {
   text-transform: uppercase;
-  margin-top: 1em;
+  margin-top: 2em; /* Two blank lines before character (clear separation from action) */
   margin-bottom: 0;
   margin-left: 2.2in; /* 3.7in from page edge - 1.5in margin */
 }
@@ -196,7 +196,7 @@ body {
 .script-element.transition {
   text-transform: uppercase;
   text-align: right;
-  margin-top: 1em;
+  margin-top: 2em; /* Two blank lines before transition */
   margin-bottom: 0;
 }
 
