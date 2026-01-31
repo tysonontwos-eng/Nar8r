@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { useDocumentStore } from '../../stores/documentStore';
 
 interface MobileToolbarProps {
@@ -7,17 +7,20 @@ interface MobileToolbarProps {
 
 export const MobileToolbar: React.FC<MobileToolbarProps> = ({ currentElementIndex }) => {
   const { cycleElementType } = useDocumentStore();
-  const [bottomOffset, setBottomOffset] = useState(0);
+  const toolbarRef = useRef<HTMLDivElement>(null);
 
-  // Track visual viewport to position above keyboard
+  // Track visual viewport to position above keyboard - use ref for smooth updates
   useEffect(() => {
     const viewport = window.visualViewport;
-    if (!viewport) return;
+    if (!viewport || !toolbarRef.current) return;
 
     const updatePosition = () => {
+      if (!toolbarRef.current) return;
       // On iOS, we need to account for both the keyboard height AND scroll offset
       const keyboardHeight = window.innerHeight - viewport.height - viewport.offsetTop;
-      setBottomOffset(Math.max(0, keyboardHeight));
+      const offset = Math.max(0, keyboardHeight);
+      // Directly set style for smooth performance (no React re-render)
+      toolbarRef.current.style.transform = `translateY(-${offset}px)`;
     };
 
     viewport.addEventListener('resize', updatePosition);
@@ -35,14 +38,13 @@ export const MobileToolbar: React.FC<MobileToolbarProps> = ({ currentElementInde
   const handleTab = (e: React.MouseEvent | React.TouchEvent) => {
     // Prevent default to keep keyboard open
     e.preventDefault();
-    // Get current element type directly from store for accurate cycling
     cycleElementType(currentElementIndex, false);
   };
 
   return (
     <div
+      ref={toolbarRef}
       className="mobile-toolbar"
-      style={{ bottom: `${bottomOffset}px` }}
     >
       <button
         className="mobile-toolbar-btn"
