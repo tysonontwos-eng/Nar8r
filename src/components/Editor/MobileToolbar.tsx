@@ -32,12 +32,10 @@ export const MobileToolbar: React.FC<MobileToolbarProps> = ({ currentElementInde
     };
   }, []);
 
-  const handleTab = () => {
+  const handleTab = (e: React.MouseEvent | React.TouchEvent) => {
+    // Prevent default to keep keyboard open
+    e.preventDefault();
     cycleElementType(currentElementIndex, false); // forward
-  };
-
-  const handleShiftTab = () => {
-    cycleElementType(currentElementIndex, true); // backward
   };
 
   return (
@@ -47,20 +45,19 @@ export const MobileToolbar: React.FC<MobileToolbarProps> = ({ currentElementInde
     >
       <button
         className="mobile-toolbar-btn"
-        onClick={handleShiftTab}
-        title="Previous element type"
+        onTouchStart={handleTab}
+        onMouseDown={handleTab}
+        title="Next element type (Tab)"
       >
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-          <path d="M12 5L7 10l5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-        </svg>
-      </button>
-      <button
-        className="mobile-toolbar-btn"
-        onClick={handleTab}
-        title="Next element type"
-      >
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-          <path d="M8 5l5 5-5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        {/* Tab key icon */}
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path
+            d="M18 6v12M6 12h10m0 0l-4-4m4 4l-4 4"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
         </svg>
       </button>
     </div>
